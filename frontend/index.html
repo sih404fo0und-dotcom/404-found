@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Found - Lost & Found Community</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
+        
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 25%, #bae6fd 50%, #7dd3fc 75%, #38bdf8 100%);
+            min-height: 100vh;       }
+        
+        .ghibli-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(105, 142, 162, 0.1);
+            box-shadow: 0 8px 32px rgba(105, 142, 162, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .ghibli-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(105, 142, 162, 0.15);
+            border-color: rgba(105, 142, 162, 0.2);
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        
+
+        
+        .wiggle {
+            animation: wiggle 2s ease-in-out infinite;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(1deg); }
+            75% { transform: rotate(-1deg); }
+        }
+        
+        .pulse-glow {
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(105, 142, 162, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(105, 142, 162, 0.6); }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .chatbox {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 999;
+        }
+        
+        .chatbox.active {
+            display: flex;
+        }
+        
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50px;
+            opacity: 0.6;
+        }
+        
+        .cloud:before {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50px;
+        }
+        
+        .cloud1 {
+            width: 100px;
+            height: 40px;
+            top: 10%;
+            left: 10%;
+            animation: drift 20s infinite linear;
+        }
+        
+        .cloud2 {
+            width: 80px;
+            height: 30px;
+            top: 20%;
+            right: 15%;
+            animation: drift 25s infinite linear reverse;
+        }
+        
+        @keyframes drift {
+            from { transform: translateX(-100px); }
+            to { transform: translateX(100px); }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <!-- Floating Clouds -->
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    
+    <!-- Header -->
+    <header class="relative z-10 py-8 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-4xl font-bold text-slate-800 floating tracking-tight">404 Found</h1>
+            <div class="space-x-6">
+                <button onclick="showUpdates()" class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-3 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl font-medium">
+                    Updates
+                </button>
+                <button onclick="showFAQ()" class="bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white px-8 py-3 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl font-medium">
+                    FAQ
+                </button>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Hero Section -->
+        <section class="text-center mb-24 fade-in relative">
+            <!-- Background humans illustration -->
+            <div class="absolute top-0 left-1/4 opacity-8 floating">
+                <svg width="100" height="100" viewBox="0 0 120 120">
+                    <!-- Person walking with phone -->
+                    <circle cx="40" cy="25" r="10" fill="#0ea5e9"/>
+                    <rect x="35" y="35" width="10" height="20" rx="5" fill="#0284c7"/>
+                    <ellipse cx="28" cy="42" rx="3" ry="8" fill="#0ea5e9"/>
+                    <ellipse cx="52" cy="42" rx="3" ry="8" fill="#0ea5e9"/>
+                    <ellipse cx="37" cy="62" rx="3" ry="10" fill="#0369a1"/>
+                    <ellipse cx="43" cy="62" rx="3" ry="10" fill="#0369a1"/>
+                    <!-- Phone in hand -->
+                    <rect x="25" y="38" width="4" height="6" rx="1" fill="#1e293b"/>
+                </svg>
+            </div>
+            <div class="absolute top-0 right-1/4 opacity-8 floating" style="animation-delay: 1s;">
+                <svg width="100" height="100" viewBox="0 0 120 120">
+                    <!-- Person with found item -->
+                    <circle cx="60" cy="25" r="10" fill="#06b6d4"/>
+                    <rect x="55" y="35" width="10" height="20" rx="5" fill="#0891b2"/>
+                    <ellipse cx="48" cy="42" rx="3" ry="8" fill="#06b6d4"/>
+                    <ellipse cx="72" cy="42" rx="3" ry="8" fill="#06b6d4"/>
+                    <ellipse cx="57" cy="62" rx="3" ry="10" fill="#0e7490"/>
+                    <ellipse cx="63" cy="62" rx="3" ry="10" fill="#0e7490"/>
+                    <!-- Found item (keys) -->
+                    <circle cx="45" cy="40" r="2" fill="#0ea5e9"/>
+                    <rect x="43" y="42" width="4" height="2" rx="1" fill="#0ea5e9"/>
+                </svg>
+            </div>
+            
+            <h2 class="text-6xl font-bold text-slate-800 mb-12 leading-tight tracking-tight">Find What's Lost.<br><span class="text-blue-600">Return What's Found.</span></h2>
+            <div class="flex flex-col md:flex-row gap-10 justify-center items-center">
+                <button onclick="showLostForm()" class="ghibli-card bg-gradient-to-br from-blue-50 to-blue-100/50 hover:from-blue-100 hover:to-blue-200/50 p-10 rounded-3xl text-center min-w-72 group pulse-glow hover:wiggle transition-all duration-300 transform hover:scale-105">
+                    <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="white" class="group-hover:animate-pulse">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3 group-hover:text-blue-700 transition-colors leading-tight">I Lost Something</h3>
+                    <p class="text-slate-600 group-hover:text-blue-600 transition-colors leading-relaxed">Report your lost item and we'll help you find it</p>
+                </button>
+                
+                <button onclick="showFoundForm()" class="ghibli-card bg-gradient-to-br from-teal-50 to-cyan-100/50 hover:from-teal-100 hover:to-cyan-200/50 p-10 rounded-3xl text-center min-w-72 group pulse-glow hover:wiggle transition-all duration-300 transform hover:scale-105">
+                    <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="white" class="group-hover:animate-bounce">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-3 group-hover:text-teal-700 transition-colors leading-tight">I Found Something</h3>
+                    <p class="text-slate-600 group-hover:text-teal-600 transition-colors leading-relaxed">Help return someone's lost item</p>
+                </button>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="mb-20 fade-in">
+            <div class="ghibli-card p-12 rounded-3xl relative overflow-hidden">
+                <!-- Cute humans in background -->
+                <div class="absolute top-4 left-4 opacity-12">
+                    <svg width="60" height="60" viewBox="0 0 100 100">
+                        <!-- Happy person with backpack -->
+                        <circle cx="30" cy="20" r="8" fill="#698ea2"/>
+                        <rect x="26" y="28" width="8" height="15" rx="4" fill="#5a7a8a"/>
+                        <ellipse cx="22" cy="32" rx="2" ry="5" fill="#698ea2"/>
+                        <ellipse cx="38" cy="32" rx="2" ry="5" fill="#698ea2"/>
+                        <ellipse cx="28" cy="48" rx="2" ry="6" fill="#4c6672"/>
+                        <ellipse cx="32" cy="48" rx="2" ry="6" fill="#4c6672"/>
+                        <!-- Backpack -->
+                        <rect x="35" y="25" width="6" height="10" rx="2" fill="#698ea2"/>
+                    </svg>
+                </div>
+                <div class="absolute top-4 right-4 opacity-12">
+                    <svg width="60" height="60" viewBox="0 0 100 100">
+                        <!-- Person helping another -->
+                        <circle cx="25" cy="15" r="6" fill="#698ea2"/>
+                        <circle cx="45" cy="15" r="6" fill="#698ea2"/>
+                        <rect x="22" y="21" width="6" height="12" rx="3" fill="#5a7a8a"/>
+                        <rect x="42" y="21" width="6" height="12" rx="3" fill="#5a7a8a"/>
+                        <!-- Arms reaching toward each other -->
+                        <ellipse cx="32" cy="25" rx="3" ry="2" fill="#698ea2"/>
+                        <ellipse cx="38" cy="25" rx="3" ry="2" fill="#698ea2"/>
+                    </svg>
+                </div>
+                
+                <h3 class="text-4xl font-bold text-slate-800 mb-8 text-center tracking-tight">About 404 Found</h3>
+                <p class="text-xl text-slate-600 leading-relaxed text-center max-w-4xl mx-auto">
+                    At 404 Found, we believe no valuable memory or belonging should stay lost. We are a team of innovators building a community-driven platform where: Technology bridges the gap, making the lost meet the found. 5000+ items lost daily in airports alone - we make sure every object can find their way back.
+                </p>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+      <section class="mb-20 fade-in">
+            <div class="ghibli-card p-12 rounded-3xl">
+                <h3 class="text-4xl font-bold text-slate-800 mb-12 text-center tracking-tight">How It Works</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100/30 hover:from-blue-100 hover:to-blue-200/50 transition-all duration-300">
+                        <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg">📝</div>
+                        <h4 class="font-bold text-xl mb-4 text-slate-800">Step 1: Report</h4>
+                        <p class="text-slate-600 leading-relaxed">Whether you lost or found an item, simply click the respective button and fill out the form.</p>
+                    </div>
+                    <div class="text-center p-6 rounded-2xl bg-gradient-to-br from-teal-50 to-teal-100/30 hover:from-teal-100 hover:to-teal-200/50 transition-all duration-300">
+                        <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg">🔍</div>
+                        <h4 class="font-bold text-xl mb-4 text-slate-800">Step 2: Match</h4>
+                        <p class="text-slate-600 leading-relaxed">Our system connects lost items with their owners through real-time updates and notifications.</p>
+                    </div>
+                    <div class="text-center p-6 rounded-2xl bg-gradient-to-br from-cyan-50 to-cyan-100/30 hover:from-cyan-100 hover:to-cyan-200/50 transition-all duration-300">
+                        <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg">🤝</div>
+                        <h4 class="font-bold text-xl mb-4 text-slate-800">Step 3: Retrieve</h4>
+                        <p class="text-slate-600 leading-relaxed">Arrange to return the item safely with guidance from our platform.</p>
+                    </div>
+                    <div class="text-center p-6 rounded-2xl bg-gradient-to-br from-sky-50 to-sky-100/30 hover:from-sky-100 hover:to-sky-200/50 transition-all duration-300">
+                        <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-sky-500 to-sky-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg">⭐</div>
+                        <h4 class="font-bold text-xl mb-4 text-slate-800">Step 4: Feedback</h4>
+                        <p class="text-slate-600 leading-relaxed">Share your experience to help improve our service and assist others in the community.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Industries Served -->
+        <section class="mb-20 fade-in">
+            <h3 class="text-4xl font-bold text-slate-800 mb-12 text-center tracking-tight">Industries We Serve</h3>
+            <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-8">
+                <div class="ghibli-card p-8 rounded-2xl text-center group cursor-pointer transform hover:scale-105 transition-all duration-300" onclick="bounceCard(this)">
+                    <div class="text-5xl mb-4 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300">🏫</div>
+                    <h4 class="font-bold text-lg text-slate-700 group-hover:text-slate-600 transition-colors">Schools</h4>
+                </div>
+                <div class="ghibli-card p-8 rounded-2xl text-center group cursor-pointer transform hover:scale-105 transition-all duration-300" onclick="bounceCard(this)">
+                    <div class="text-5xl mb-4 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300">🎓</div>
+                    <h4 class="font-bold text-lg text-slate-700 group-hover:text-slate-600 transition-colors">Campuses</h4>
+                </div>
+                <div class="ghibli-card p-8 rounded-2xl text-center group cursor-pointer transform hover:scale-105 transition-all duration-300" onclick="bounceCard(this)">
+                    <div class="text-5xl mb-4 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300">🏨</div>
+                    <h4 class="font-bold text-lg text-slate-700 group-hover:text-slate-600 transition-colors">Hotels</h4>
+                </div>
+                <div class="ghibli-card p-8 rounded-2xl text-center group cursor-pointer transform hover:scale-105 transition-all duration-300" onclick="bounceCard(this)">
+                    <div class="text-5xl mb-4 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300">🌳</div>
+                    <h4 class="font-bold text-lg text-slate-700 group-hover:text-slate-600 transition-colors">Parks</h4>
+                </div>
+                <div class="ghibli-card p-8 rounded-2xl text-center group cursor-pointer transform hover:scale-105 transition-all duration-300" onclick="bounceCard(this)">
+                    <div class="text-5xl mb-4 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300">✈️</div>
+                    <h4 class="font-bold text-lg text-slate-700 group-hover:text-slate-600 transition-colors">Airports</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recently Found Items -->
+       <section class="mb-20 fade-in">
+    <h3 class="text-4xl font-bold text-slate-800 mb-12 text-center tracking-tight">Recently Found Items</h3>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Suit Jacket -->
+        <div class="ghibli-card p-8 rounded-2xl">
+            <div class="w-full h-48 bg-gradient-to-br from-slate-700 to-slate-600 rounded-2xl mb-6 flex items-center justify-center">
+                <svg width="80" height="80" viewBox="0 0 100 100" class="text-white">
+                    <path d="M20 30 Q20 20 30 20 L70 20 Q80 20 80 30 L80 70 Q80 80 70 80 L30 80 Q20 80 20 70 Z" fill="currentColor"/>
+                    <path d="M25 35 L75 35 L75 45 L25 45 Z" fill="#475569"/>
+                    <circle cx="35" cy="55" r="3" fill="#475569"/>
+                    <circle cx="65" cy="55" r="3" fill="#475569"/>
+                </svg>
+            </div>
+            <h4 class="font-bold text-xl mb-3 text-slate-800">Suit Jacket</h4>
+            <p class="text-slate-600 mb-3 font-medium">Found at Terna Engineering College</p>
+            <p class="text-sm text-slate-500 mb-6 leading-relaxed">Black formal suit jacket, size M, found in lecture hall 3</p>
+        </div>
+        
+        <!-- Blue Backpack -->
+        <div class="ghibli-card p-8 rounded-2xl">
+            <div class="w-full h-48 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl mb-6 flex items-center justify-center">
+                <svg width="60" height="60" viewBox="0 0 100 100" class="text-white">
+                    <rect x="20" y="40" width="60" height="40" rx="5" fill="currentColor"/>
+                    <rect x="25" y="35" width="50" height="30" rx="3" fill="rgba(255,255,255,0.3)"/>
+                    <circle cx="50" cy="50" r="8" fill="rgba(255,255,255,0.5)"/>
+                </svg>
+            </div>
+            <h4 class="font-bold text-xl mb-3 text-slate-800">Blue Backpack</h4>
+            <p class="text-slate-600 mb-3 font-medium">Found at Central Park</p>
+            <p class="text-sm text-slate-500 mb-6 leading-relaxed">Blue hiking backpack with water bottle holder</p>
+        </div>
+        
+        <!-- Red Wallet -->
+        <div class="ghibli-card p-8 rounded-2xl">
+            <div class="w-full h-48 bg-gradient-to-br from-red-500 to-red-700 rounded-2xl mb-6 flex items-center justify-center">
+                <svg width="60" height="60" viewBox="0 0 100 100" class="text-white">
+                    <rect x="25" y="30" width="50" height="30" rx="25" fill="currentColor"/>
+                    <rect x="30" y="35" width="40" height="20" rx="2" fill="rgba(255,255,255,0.3)"/>
+                    <circle cx="35" cy="45" r="2" fill="rgba(255,255,255,0.7)"/>
+                </svg>
+            </div>
+            <h4 class="font-bold text-xl mb-3 text-slate-800">Red Wallet</h4>
+            <p class="text-slate-600 mb-3 font-medium">Found at Airport Terminal 2</p>
+            <p class="text-sm text-slate-500 mb-6 leading-relaxed">Red leather wallet found near security checkpoint</p>
+        </div>
+    </div>
+</section>
+
+        <!-- Customer Feedback -->
+        <section class="mb-20 fade-in">
+            <h3 class="text-4xl font-bold text-slate-800 mb-12 text-center tracking-tight">Share Your Experience</h3>
+            <div class="max-w-2xl mx-auto">
+                <div class="ghibli-card p-12 rounded-3xl relative overflow-hidden">
+                    <!-- Community of people in background -->
+                    <div class="absolute bottom-4 left-4 opacity-8">
+                        <svg width="80" height="40" viewBox="0 0 120 60">
+                            <!-- Group of diverse people -->
+                            <circle cx="20" cy="15" r="6" fill="#698ea2"/>
+                            <circle cx="40" cy="15" r="6" fill="#698ea2"/>
+                            <circle cx="60" cy="15" r="6" fill="#5a7a8a"/>
+                            <circle cx="80" cy="15" r="6" fill="#5a7a8a"/>
+                            <rect x="17" y="21" width="6" height="12" rx="3" fill="#4c6672"/>
+                            <rect x="37" y="21" width="6" height="12" rx="3" fill="#4c6672"/>
+                            <rect x="57" y="21" width="6" height="12" rx="3" fill="#5a7a8a"/>
+                            <rect x="77" y="21" width="6" height="12" rx="3" fill="#698ea2"/>
+                            <!-- Speech bubbles -->
+                            <circle cx="25" cy="8" r="3" fill="#f1f5f9" opacity="0.8"/>
+                            <circle cx="65" cy="8" r="3" fill="#f1f5f9" opacity="0.8"/>
+                        </svg>
+                    </div>
+                    <form onsubmit="submitReview(event)" class="space-y-8">
+                        <div>
+                            <label class="block text-lg font-bold mb-4 text-slate-700">Your Name</label>
+                            <input type="text" required class="w-full p-4 border-2 border-slate-200 rounded-2xl focus:border-blue-400 focus:outline-none transition-all duration-300 bg-white/50" placeholder="Enter your name">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-lg font-bold mb-4 text-slate-700">Rate Your Experience</label>
+                            <div class="flex gap-3 mb-6">
+                                <button type="button" onclick="setRating(1)" class="star-btn text-4xl text-slate-300 hover:text-blue-400 transition-colors">⭐</button>
+                                <button type="button" onclick="setRating(2)" class="star-btn text-4xl text-slate-300 hover:text-blue-400 transition-colors">⭐</button>
+                                <button type="button" onclick="setRating(3)" class="star-btn text-4xl text-slate-300 hover:text-blue-400 transition-colors">⭐</button>
+                                <button type="button" onclick="setRating(4)" class="star-btn text-4xl text-slate-300 hover:text-blue-400 transition-colors">⭐</button>
+                                <button type="button" onclick="setRating(5)" class="star-btn text-4xl text-slate-300 hover:text-blue-400 transition-colors">⭐</button>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-lg font-bold mb-4 text-slate-700">Tell Us About Your Experience</label>
+                            <textarea required class="w-full p-4 border-2 border-slate-200 rounded-2xl h-36 focus:border-blue-400 focus:outline-none transition-all duration-300 resize-none bg-white/50 leading-relaxed" placeholder="Share your story with the community..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white py-5 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                            Share My Review ✨
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Swipe Cards Section -->
+    <div id="swipeSection" class="fixed inset-0 bg-gradient-to-br from-blue-50 to-blue-100 z-40 hidden">
+        <div class="max-w-md mx-auto pt-20 px-6">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Found Items</h2>
+                <p class="text-slate-600">Swipe through items to find yours</p>
+            </div>
+            
+            <!-- Card Stack -->
+            <div class="relative h-96 mb-8">
+                <div id="cardStack" class="absolute inset-0">
+                    <!-- Cards will be dynamically inserted here -->
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex justify-center gap-6 mb-8">
+                <button onclick="swipeCard('left')" class="bg-red-500 hover:bg-red-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
+                    <span class="text-2xl">❌</span>
+                </button>
+                <button onclick="swipeCard('right')" class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
+                    <span class="text-2xl">✅</span>
+                </button>
+            </div>
+            
+            <button onclick="closeSwipeCards()" class="w-full bg-gray-500 hover:bg-gray-600 text-white py-3 rounded-2xl font-medium transition-colors">
+                Back to Main
+            </button>
+        </div>
+    </div>
+
+    <!-- Match Chat Room -->
+    <div id="matchChatRoom" class="fixed inset-0 bg-white z-50 hidden">
+        <div class="flex flex-col h-full">
+            <!-- Chat Header -->
+            <div class="bg-blue-600 text-white p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                        <span class="text-lg">👤</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold" id="matchedUserName">Sarah Johnson</h3>
+                        <p class="text-sm text-blue-200">Found your item</p>
+                    </div>
+                </div>
+                <button onclick="closeMatchChat()" class="text-white hover:text-gray-200 text-2xl">✕</button>
+            </div>
+            
+            <!-- Chat Messages -->
+            <div class="flex-1 p-4 overflow-y-auto bg-gray-50" id="matchChatMessages">
+                <div class="space-y-4">
+                    <div class="flex justify-start">
+                        <div class="bg-white p-3 rounded-2xl rounded-bl-md shadow-sm max-w-xs">
+                            <p class="text-sm">Hi! I found your blue backpack at Central Park. Is this yours?</p>
+                            <p class="text-xs text-gray-500 mt-1">2:30 PM</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <div class="bg-blue-500 text-white p-3 rounded-2xl rounded-br-md shadow-sm max-w-xs">
+                            <p class="text-sm">Yes! That's definitely mine. Thank you so much for finding it!</p>
+                            <p class="text-xs text-blue-200 mt-1">2:32 PM</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-start">
+                        <div class="bg-white p-3 rounded-2xl rounded-bl-md shadow-sm max-w-xs">
+                            <p class="text-sm">Great! I'm near the fountain area. Can you meet me there in 10 minutes?</p>
+                            <p class="text-xs text-gray-500 mt-1">2:33 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chat Input -->
+            <div class="p-4 bg-white border-t">
+                <div class="flex gap-2">
+                    <input type="text" id="matchChatInput" placeholder="Type your message..." class="flex-1 p-3 border border-gray-300 rounded-2xl focus:outline-none focus:border-blue-500" onkeypress="handleMatchChatEnter(event)">
+                    <button onclick="sendMatchMessage()" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-2xl font-medium transition-colors">
+                        Send
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Button -->
+    <button onclick="toggleChat()" class="fixed bottom-8 right-8 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 z-50 transform hover:scale-105">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+        </svg>
+    </button>
+
+    <!-- Swipe Cards Button -->
+    <button onclick="showSwipeCards()" class="fixed bottom-8 left-8 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white p-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 z-50 transform hover:scale-105">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+        </svg>
+    </button>
+
+    <!-- Chatbox -->
+    <div id="chatbox" class="chatbox">
+        <div class="bg-blue-500 text-white p-4 rounded-t-2xl flex justify-between items-center">
+            <h4 class="font-bold">Chat with us!</h4>
+            <button onclick="toggleChat()" class="text-white hover:text-gray-200">✕</button>
+        </div>
+        <div class="flex-1 p-4 overflow-y-auto" id="chatMessages">
+            <div class="bg-gray-100 p-3 rounded-lg mb-3">
+                <p class="text-sm">Hi! How can I help you today? You can ask about lost items or report something you found!</p>
+            </div>
+        </div>
+        <div class="p-4 border-t">
+            <div class="flex gap-2">
+                <input type="text" id="chatInput" placeholder="Type your message..." class="flex-1 p-2 border rounded-lg text-sm" onkeypress="handleChatEnter(event)">
+                <button onclick="sendMessage()" class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Updates Modal -->
+    <div id="updatesModal" class="modal">
+        <div class="ghibli-card p-8 rounded-3xl max-w-2xl mx-4 max-h-96 overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-blue-900">Recent Updates</h3>
+                <button onclick="closeModal('updatesModal')" class="text-gray-500 hover:text-gray-700 text-2xl">✕</button>
+            </div>
+            <div class="space-y-4">
+                <div class="border-l-4 border-green-500 pl-4">
+                    <p class="font-semibold">New item found: Suit Jacket at Terna Engineering College</p>
+                    <p class="text-sm text-gray-600">2 hours ago</p>
+                </div>
+                <div class="border-l-4 border-blue-500 pl-4">
+                    <p class="font-semibold">Match found: Blue backpack returned to owner</p>
+                    <p class="text-sm text-gray-600">5 hours ago</p>
+                </div>
+                <div class="border-l-4 border-purple-500 pl-4">
+                    <p class="font-semibold">New item found: Red wallet at Airport Terminal 2</p>
+                    <p class="text-sm text-gray-600">1 day ago</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Modal -->
+    <div id="faqModal" class="modal">
+        <div class="ghibli-card p-8 rounded-3xl max-w-2xl mx-4 max-h-96 overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-blue-900">Frequently Asked Questions</h3>
+                <button onclick="closeModal('faqModal')" class="text-gray-500 hover:text-gray-700 text-2xl">✕</button>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <h4 class="font-bold text-lg mb-2">How do I report a lost item?</h4>
+                    <p class="text-gray-600">Click the "I Lost Something" button and fill out the form with details about your item.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">Is this service free?</h4>
+                    <p class="text-gray-600">Yes! 404 Found is completely free to use for everyone.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">How do I contact someone who found my item?</h4>
+                    <p class="text-gray-600">We'll provide secure contact information once a match is found.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-2">What if I can't find my item?</h4>
+                    <p class="text-gray-600">Keep your listing active and check back regularly. New items are added daily!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lost Item Form Modal -->
+    <div id="lostModal" class="modal">
+        <div class="ghibli-card p-8 rounded-3xl max-w-md mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-red-700">Report Lost Item</h3>
+                <button onclick="closeModal('lostModal')" class="text-gray-500 hover:text-gray-700 text-2xl">✕</button>
+            </div>
+            <form onsubmit="submitLostForm(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Item Name</label>
+                        <input type="text" required class="w-full p-3 border rounded-lg" placeholder="e.g., Blue backpack">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Where did you lose it?</label>
+                        <input type="text" required class="w-full p-3 border rounded-lg" placeholder="e.g., Central Park">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Description</label>
+                        <textarea required class="w-full p-3 border rounded-lg h-24" placeholder="Describe your item in detail..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Your Contact</label>
+                        <input type="email" required class="w-full p-3 border rounded-lg" placeholder="your.email@example.com">
+                    </div>
+                    <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-bold transition-colors">
+                        Report Lost Item
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Found Item Form Modal -->
+    <div id="foundModal" class="modal">
+        <div class="ghibli-card p-8 rounded-3xl max-w-md mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-green-700">Report Found Item</h3>
+                <button onclick="closeModal('foundModal')" class="text-gray-500 hover:text-gray-700 text-2xl">✕</button>
+            </div>
+            <form onsubmit="submitFoundForm(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Item Name</label>
+                        <input type="text" required class="w-full p-3 border rounded-lg" placeholder="e.g., Red wallet">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Where did you find it?</label>
+                        <input type="text" required class="w-full p-3 border rounded-lg" placeholder="e.g., Airport Terminal 2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Description</label>
+                        <textarea required class="w-full p-3 border rounded-lg h-24" placeholder="Describe the item you found..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Your Contact</label>
+                        <input type="email" required class="w-full p-3 border rounded-lg" placeholder="your.email@example.com">
+                    </div>
+                    <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-bold transition-colors">
+                        Report Found Item
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Dummy data for swipe cards
+        const dummyData = [
+            {
+                id: 1,
+                name: "Blue Backpack",
+                location: "Central Park",
+                description: "Blue hiking backpack with water bottle holder, found near the fountain",
+                image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTUwIiBmaWxsPSIjMzMzIi8+CjxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI3MCIgcng9IjEwIiBmaWxsPSIjMzMzNWZmIi8+CjxyZWN0IHg9IjUwIiB5PSI1MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSI1MCIgcng9IjUiIGZpbGw9IiM1NTc3ZmYiLz4KPGV4dCB4PSIxMDAiIHk9Ijc1IiBmaWxsPSJ3aGl0ZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5CYWNrcGFjazwvdGV4dD4KPC9zdmc+",
+                finder: "Sarah Johnson"
+            },
+            {
+                id: 2,
+                name: "Red Wallet",
+                location: "Airport Terminal 2",
+                description: "Red leather wallet found near security checkpoint, contains cards",
+                image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTUwIiBmaWxsPSIjMzMzIi8+CjxyZWN0IHg9IjUwIiB5PSI2MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSI0MCIgcng9IjUiIGZpbGw9IiNkYzI2MjYiLz4KPGV4dCB4PSIxMDAiIHk9Ijg1IiBmaWxsPSJ3aGl0ZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5XYWxsZXQ8L3RleHQ+Cjwvc3ZnPg==",
+                finder: "Mike Chen"
+            },
+            {
+                id: 3,
+                name: "Black Suit Jacket",
+                location: "Terna Engineering College",
+                description: "Black formal suit jacket, size M, found in lecture hall 3",
+                image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTUwIiBmaWxsPSIjMzMzIi8+CjxwYXRoIGQ9Ik02MCA0MFE2MCAzMCA3MCAzMEwxMzAgMzBRMTQwIDMwIDE0MCA0MEwxNDAgMTEwUTE0MCAxMjAgMTMwIDEyMEw3MCAxMjBRNjAgMTIwIDYwIDExMFoiIGZpbGw9IiMxZTE5MWUiLz4KPGV4dCB4PSIxMDAiIHk9Ijc1IiBmaWxsPSJ3aGl0ZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5KYWNrZXQ8L3RleHQ+Cjwvc3ZnPg==",
+                finder: "Emma Davis"
+            }
+        ];
+
+        let currentCardIndex = 0;
+        let cardStack = [];
+
+        // Modal functions
+        function showUpdates() {
+            document.getElementById('updatesModal').classList.add('active');
+        }
+
+        function showFAQ() {
+            document.getElementById('faqModal').classList.add('active');
+        }
+
+        function showLostForm() {
+            document.getElementById('lostModal').classList.add('active');
+        }
+
+        function showFoundForm() {
+            document.getElementById('foundModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Close modals when clicking outside
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+
+        // Chat functions
+        function toggleChat() {
+            const chatbox = document.getElementById('chatbox');
+            chatbox.classList.toggle('active');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (message) {
+                addChatMessage(message, 'user');
+                input.value = '';
+                
+                // Simulate bot response
+                setTimeout(() => {
+                    const responses = [
+                        "Thanks for your message! I'll help you with that.",
+                        "That's a great question! Let me connect you with our support team.",
+                        "I understand you need help. Have you tried checking our FAQ section?",
+                        "I'm here to help! You can report lost or found items using the main buttons."
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    addChatMessage(randomResponse, 'bot');
+                }, 1000);
+            }
+        }
+
+        function addChatMessage(message, sender) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = sender === 'user' ? 'bg-green-100 p-3 rounded-lg mb-3 ml-8' : 'bg-gray-100 p-3 rounded-lg mb-3 mr-8';
+            messageDiv.innerHTML = `<p class="text-sm">${message}</p>`;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function handleChatEnter(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Rating system
+        let currentRating = 0;
+        
+        function setRating(rating) {
+            currentRating = rating;
+            const stars = document.querySelectorAll('.star-btn');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('text-blue-400');
+                    star.classList.remove('text-slate-300');
+                } else {
+                    star.classList.add('text-slate-300');
+                    star.classList.remove('text-blue-400');
+                }
+            });
+        }
+
+        // Form submissions with fun animations
+        function submitLostForm(event) {
+            event.preventDefault();
+            showConfetti();
+            setTimeout(() => {
+                alert('🔍 Thank you! Your lost item report has been submitted. We\'ll notify you if we find a match!');
+                closeModal('lostModal');
+            }, 1000);
+        }
+
+        function submitFoundForm(event) {
+            event.preventDefault();
+            showConfetti();
+            setTimeout(() => {
+                alert('⭐ Thank you for helping the community! Your found item report has been submitted.');
+                closeModal('foundModal');
+            }, 1000);
+        }
+
+        function submitReview(event) {
+            event.preventDefault();
+            if (currentRating === 0) {
+                alert('Please select a rating before submitting!');
+                return;
+            }
+            showConfetti();
+            setTimeout(() => {
+                alert('✨ Thank you for sharing your experience! Your review helps make our community better.');
+                event.target.reset();
+                setRating(0);
+            }, 1000);
+        }
+
+        // Fun confetti effect
+        function showConfetti() {
+            for (let i = 0; i < 50; i++) {
+                createConfettiPiece();
+            }
+        }
+
+        function createConfettiPiece() {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.width = '10px';
+            confetti.style.height = '10px';
+            confetti.style.backgroundColor = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57'][Math.floor(Math.random() * 5)];
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = '-10px';
+            confetti.style.borderRadius = '50%';
+            confetti.style.pointerEvents = 'none';
+            confetti.style.zIndex = '9999';
+            
+            document.body.appendChild(confetti);
+            
+            const animation = confetti.animate([
+                { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                { transform: `translateY(100vh) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+            ], {
+                duration: Math.random() * 3000 + 2000,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            });
+            
+            animation.onfinish = () => confetti.remove();
+        }
+
+        // Swipe Cards Functions
+        function showSwipeCards() {
+            document.getElementById('swipeSection').classList.remove('hidden');
+            currentCardIndex = 0;
+            initializeCards();
+        }
+
+        function closeSwipeCards() {
+            document.getElementById('swipeSection').classList.add('hidden');
+        }
+
+        function initializeCards() {
+            const cardStackElement = document.getElementById('cardStack');
+            cardStackElement.innerHTML = '';
+            
+            // Show up to 3 cards in stack
+            for (let i = 0; i < Math.min(3, dummyData.length - currentCardIndex); i++) {
+                const cardData = dummyData[currentCardIndex + i];
+                const card = createCard(cardData, i);
+                cardStackElement.appendChild(card);
+            }
+        }
+
+        function createCard(data, stackIndex) {
+            const card = document.createElement('div');
+            card.className = `absolute inset-0 bg-white rounded-3xl shadow-xl transform transition-all duration-300 cursor-pointer hover:scale-105`;
+            card.style.zIndex = 10 - stackIndex;
+            card.style.transform = `translateY(${stackIndex * 4}px) scale(${1 - stackIndex * 0.02})`;
+            
+            card.innerHTML = `
+                <div class="p-6 h-full flex flex-col">
+                    <div class="w-full h-48 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mb-4 flex items-center justify-center overflow-hidden">
+                        <svg width="80" height="60" viewBox="0 0 100 80" class="text-white">
+                            ${getItemIcon(data.name)}
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2">${data.name}</h3>
+                    <p class="text-blue-600 font-medium mb-3">📍 ${data.location}</p>
+                    <p class="text-slate-600 text-sm leading-relaxed flex-1">${data.description}</p>
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <p class="text-sm text-slate-500">Found by: <span class="font-medium text-slate-700">${data.finder}</span></p>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        function getItemIcon(itemName) {
+            if (itemName.toLowerCase().includes('backpack')) {
+                return '<rect x="20" y="30" width="60" height="40" rx="5" fill="currentColor"/><rect x="25" y="25" width="50" height="30" rx="3" fill="rgba(255,255,255,0.3)"/><circle cx="50" cy="40" r="8" fill="rgba(255,255,255,0.5)"/>';
+            } else if (itemName.toLowerCase().includes('wallet')) {
+                return '<rect x="25" y="35" width="50" height="25" rx="3" fill="currentColor"/><rect x="30" y="40" width="40" height="15" rx="2" fill="rgba(255,255,255,0.3)"/><circle cx="35" cy="47" r="2" fill="rgba(255,255,255,0.7)"/>';
+            } else if (itemName.toLowerCase().includes('jacket')) {
+                return '<path d="M30 25Q30 20 35 20L65 20Q70 20 70 25L70 55Q70 60 65 60L35 60Q30 60 30 55Z" fill="currentColor"/><rect x="35" y="30" width="30" height="5" fill="rgba(255,255,255,0.3)"/><circle cx="40" cy="40" r="2" fill="rgba(255,255,255,0.5)"/><circle cx="60" cy="40" r="2" fill="rgba(255,255,255,0.5)"/>';
+            }
+            return '<rect x="30" y="30" width="40" height="30" rx="5" fill="currentColor"/>';
+        }
+
+        function swipeCard(direction) {
+            if (currentCardIndex >= dummyData.length) return;
+            
+            const topCard = document.querySelector('#cardStack > div:last-child');
+            if (!topCard) return;
+            
+            // Animate card exit
+            if (direction === 'right') {
+                topCard.style.transform = 'translateX(400px) rotate(30deg)';
+                topCard.style.opacity = '0';
+                
+                // Show match and go to chat
+                setTimeout(() => {
+                    showMatchFound(dummyData[currentCardIndex]);
+                }, 300);
+            } else {
+                topCard.style.transform = 'translateX(-400px) rotate(-30deg)';
+                topCard.style.opacity = '0';
+            }
+            
+            // Remove card and show next
+            setTimeout(() => {
+                topCard.remove();
+                currentCardIndex++;
+                
+                if (direction === 'left' && currentCardIndex < dummyData.length) {
+                    // Add new card to bottom of stack
+                    const newCardIndex = currentCardIndex + 2;
+                    if (newCardIndex < dummyData.length) {
+                        const cardStackElement = document.getElementById('cardStack');
+                        const newCard = createCard(dummyData[newCardIndex], 2);
+                        cardStackElement.insertBefore(newCard, cardStackElement.firstChild);
+                    }
+                    
+                    // Update remaining cards positions
+                    updateCardPositions();
+                } else if (direction === 'left' && currentCardIndex >= dummyData.length) {
+                    // No more cards
+                    showNoMoreCards();
+                }
+            }, 300);
+        }
+
+        function updateCardPositions() {
+            const cards = document.querySelectorAll('#cardStack > div');
+            cards.forEach((card, index) => {
+                card.style.zIndex = 10 - index;
+                card.style.transform = `translateY(${index * 4}px) scale(${1 - index * 0.02})`;
+            });
+        }
+
+        function showNoMoreCards() {
+            const cardStackElement = document.getElementById('cardStack');
+            cardStackElement.innerHTML = `
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🔍</div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2">No More Items</h3>
+                        <p class="text-slate-600">Check back later for new found items!</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showMatchFound(item) {
+            closeSwipeCards();
+            document.getElementById('matchedUserName').textContent = item.finder;
+            document.getElementById('matchChatRoom').classList.remove('hidden');
+            
+            // Add initial message about the match
+            setTimeout(() => {
+                addMatchChatMessage(`Great news! I found your ${item.name} at ${item.location}. Is this yours?`, 'other');
+            }, 500);
+        }
+
+        // Match Chat Functions
+        function closeMatchChat() {
+            document.getElementById('matchChatRoom').classList.add('hidden');
+        }
+
+        function sendMatchMessage() {
+            const input = document.getElementById('matchChatInput');
+            const message = input.value.trim();
+            if (message) {
+                addMatchChatMessage(message, 'user');
+                input.value = '';
+                
+                // Simulate response
+                setTimeout(() => {
+                    const responses = [
+                        "Perfect! I'll be there in a few minutes.",
+                        "Great! Let me know when you arrive.",
+                        "Sounds good! See you soon.",
+                        "Thank you so much for finding it!"
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    addMatchChatMessage(randomResponse, 'other');
+                }, 1000);
+            }
+        }
+
+        function addMatchChatMessage(message, sender) {
+            const messagesContainer = document.getElementById('matchChatMessages');
+            const messageDiv = document.createElement('div');
+            const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            if (sender === 'user') {
+                messageDiv.className = 'flex justify-end mb-4';
+                messageDiv.innerHTML = `
+                    <div class="bg-blue-500 text-white p-3 rounded-2xl rounded-br-md shadow-sm max-w-xs">
+                        <p class="text-sm">${message}</p>
+                        <p class="text-xs text-blue-200 mt-1">${time}</p>
+                    </div>
+                `;
+            } else {
+                messageDiv.className = 'flex justify-start mb-4';
+                messageDiv.innerHTML = `
+                    <div class="bg-white p-3 rounded-2xl rounded-bl-md shadow-sm max-w-xs">
+                        <p class="text-sm">${message}</p>
+                        <p class="text-xs text-gray-500 mt-1">${time}</p>
+                    </div>
+                `;
+            }
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function handleMatchChatEnter(event) {
+            if (event.key === 'Enter') {
+                sendMatchMessage();
+            }
+        }
+
+        // Add scroll animations
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.style.animationDelay = Math.random() * 0.3 + 's';
+                }
+            });
+        }
+
+        // Add floating animation to random elements
+        function addRandomFloating() {
+            const cards = document.querySelectorAll('.ghibli-card');
+            cards.forEach((card, index) => {
+                if (Math.random() > 0.7) {
+                    card.style.animationDelay = (index * 0.2) + 's';
+                    card.classList.add('floating');
+                }
+            });
+        }
+
+        // Easter egg: Click the title multiple times for surprise
+        let titleClicks = 0;
+        document.querySelector('h1').addEventListener('click', function() {
+            titleClicks++;
+            if (titleClicks === 5) {
+                showConfetti();
+                alert('🎉 You found the easter egg! Welcome to 404 Found!');
+                titleClicks = 0;
+            }
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', () => {
+            animateOnScroll();
+            addRandomFloating();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'983c457f72c3ff97',t:'MTc1ODY1Mzg4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
